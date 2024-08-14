@@ -1,36 +1,51 @@
 "use client";
 
+import React from 'react';
+import { Table, Button, Space } from 'antd';
+import { useCrudContext } from '../context/CrudContext';
 
-import {Table, Button, Space} from "antd";
-import { title } from "process";
+const CrudTable: React.FC = () => {
+  const { items, deleteItem } = useCrudContext(); 
 
-
-const CrudTable=() => {
   const columns = [
-  {
-    title:"Name",
-    dataIndex:"name",
-    key:"name",
-  },
-  {
-    title:'Email',
-    dataIndex:"email",
-    key:"email"
-  },
-  {
-    title:"Actions",
-    key:"actions",
-    render:() => (
+    {
+      title: "Name",
+      dataIndex: "title", 
+      key: "title",
+    },
+    {
+      title: "Email",
+      dataIndex: "description", 
+      key: "description"
+    },
+    {
+      title: "Actions",
+      key: "actions",
+      render: (_, record) => (
         <Space>
-            <Button>Edit</Button>
-            <Button>Delete</Button>
+          <Button onClick={() => handleEdit(record)}>Edit</Button>
+          <Button onClick={() => handleDelete(record.id)}>Delete</Button>
         </Space>
-    )
-  }
-  ]  
-  return(
-    <Table columns={columns}  rowKey='id'/>
-  )
-}
+      )
+    }
+  ];
+
+  const handleEdit = (record: Item) => {
+
+    console.log("Edit item:", record);
+  };
+
+  const handleDelete = (id: number) => {
+    deleteItem(id);
+  };
+
+  return (
+    <Table 
+      columns={columns} 
+      dataSource={items} 
+      rowKey="id" 
+    />
+  );
+};
 
 export default CrudTable;
