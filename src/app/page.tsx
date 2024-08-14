@@ -1,8 +1,15 @@
+import CrudForm from '@/components/Form'
+import CrudTable from '@/components/Table'
+
+
 import React from 'react'
 
 const page = () => {
   return (
-    <div>page</div>
+    <div>
+<CrudForm/>
+<CrudTable/>
+    </div>
   )
 }
 
